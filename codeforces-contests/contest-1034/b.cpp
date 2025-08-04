@@ -23,18 +23,16 @@ signed main()
         vector<int> xs(n);
         for(auto& x : xs) cin >> x;
 
-        if(xs.size() % 2)
+        if(k > 1)
         {
             cout << "Yes\n";
             continue;
         }
 
         int f = xs[j-1];
-        xs[j-1] = INF;
+        int f2 = *max_element(all(xs));
 
-        int f2 = *min_element(all(xs));
-
-        if(f < f2) cout << "No";
+        if(f != f2) cout << "No";
         else cout << "Yes";
         cout << '\n';
     }

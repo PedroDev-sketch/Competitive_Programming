@@ -20,22 +20,49 @@ signed main()
         cin >> n;
 
         vll xs(n);
-        map<int, int> hist;
+        vll counter(n+1, 0);
         for(auto& x : xs) 
         {
             cin >> x;
-            hist[x]++;
+            counter[x]++;
         }
 
-        sort(all(xs));
-
-        vll mex(n+1, 0);
-        vll ks(n+1, 0);
-
+        int mex_initial = 0;
         for(int i = 0; i < n+1; i++)
         {
-            mex[i] += hist[i];
+            if(!counter[i]){mex_initial = i; break;}
         }
+
+        vll ys(n+2, 0);
+
+        for(int m = 0; m <= mex_initial; m++)
+        {
+            ll k_min, k_max;
+            if(m != mex_initial)
+            {
+                k_min = counter[m];
+                k_max = n-m;
+            }
+            else
+            {
+                k_min = 0;
+                k_max = n-m;
+            }
+
+            if(k_min <= k_max)
+            {
+                ys[k_min]++;
+                ys[k_max+1]--;
+            }
+        }
+
+        ll curr = 0;
+        for(int k = 0; k <= n; k++)
+        {
+            curr += ys[k];
+            cout << curr << ' ';
+        }
+        cout << '\n';
     }
 
     return 0;
