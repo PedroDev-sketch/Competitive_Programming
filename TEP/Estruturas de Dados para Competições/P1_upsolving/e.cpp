@@ -11,6 +11,22 @@ using vpll = vector<pll>;
 
 ll h, w, k;
 
+void in_line(vvll& ws, vvll& xs, ll x, ll y)
+{
+    for(ll i = 0; i <= h; i++)
+    {
+        for(ll j = 0; j <= w-k; j++)
+        {
+            if((x-i) < k && (y-j) < k && x>=i && y>=j)
+            {
+                ws[i][j] += xs[x][y] * pow(-1, (x-i)+(y-j));
+
+                //cout << i << " " << j << " -> " << xs[x][y] * pow(-1, (x-i)+(y-j)) << '\n';
+            }
+        }
+    }
+}
+
 void in_range(vvll& zs, vvll& xs, ll x, ll y)
 {
     for(ll i = 0; i <= h-k; i++)
@@ -37,6 +53,15 @@ signed main()
         vll ys(w);
         for(auto& y : ys) cin >> y;
         x = ys;
+    }
+
+    vvll ws(h, vll(w-k+1));
+    for(ll i = 0; i < h; i++)
+    {
+        for(ll j = 0; j < w; j++)
+        {
+            in_line(ws, xs, i, j);
+        }
     }
 
     vvll zs(h-k+1, vll(w-k+1, 0));
