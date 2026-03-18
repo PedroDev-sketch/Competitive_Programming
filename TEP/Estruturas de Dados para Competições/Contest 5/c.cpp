@@ -18,22 +18,34 @@ using vpll = vector<pll>;
 
 void solve()
 {
-    ll n; cin >> n;
-    
-    ll ans;
-    if(n%2)
-        ans = n/2;
-    else
-        ans = (n-1)/2;
+   ll n, q; cin >> n >> q;
+   map<ll,multiset<ll>> hs; 
 
-    cout << ans << '\n';
+   while(q--)
+   {
+        ll t, x, y; cin >> t >> x >> y;
+        if(t==1)
+            hs[y].emplace(x);
+        else if(t==2)
+            hs[y].erase(x);
+        else
+        {
+            auto it1 = hs[y].find(x);
+            auto it2 = hs[x].find(y);
+
+            if(it1 != hs[y].end() && it2 != hs[x].end())
+                cout << "Yes";
+            else cout << "No";
+            cout << '\n';
+        }
+   }
 }
 
 signed main()
 {
     fio;
     ll t = 1;
-    cin >> t;
+    //cin >> t;
     while (t--)
         solve();
 }

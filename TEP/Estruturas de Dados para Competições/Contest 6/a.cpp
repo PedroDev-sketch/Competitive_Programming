@@ -19,21 +19,17 @@ using vpll = vector<pll>;
 void solve()
 {
     ll n; cin >> n;
-    
-    ll ans;
-    if(n%2)
-        ans = n/2;
-    else
-        ans = (n-1)/2;
-
-    cout << ans << '\n';
+    vector<string> xs(n);
+    for(auto& x : xs) cin >> x;
+    reverse(all(xs));
+    for(auto x : xs) cout << x << '\n'; 
 }
 
 signed main()
 {
     fio;
     ll t = 1;
-    cin >> t;
+    //cin >> t;
     while (t--)
         solve();
 }

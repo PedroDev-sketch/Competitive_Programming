@@ -16,17 +16,39 @@ using vpll = vector<pll>;
 #define ff first
 #define ss second
 
+vll factors(ll x) {
+    vll fs;
+    for (ll i = 2; i * i * i <= x; ++i)
+        while (x % i == 0)
+            fs.eb(i), x /= i;
+    if (x > 1) fs.eb(x);
+    return fs;
+}
+
 void solve()
 {
     ll n; cin >> n;
-    
-    ll ans;
-    if(n%2)
-        ans = n/2;
-    else
-        ans = (n-1)/2;
 
-    cout << ans << '\n';
+    vll xs = factors(n);
+    ll p = 0, q = 0;
+    for(auto x : xs)
+    {
+        if(n%x) continue;
+        
+        ll num = n/x;
+        if(num%x==0)
+        {
+            p = x;
+            q = n/(x*x);
+        }
+        else
+        {
+            q = x;
+            p = (ll)sqrt(n/x);
+        }
+        cout << p << ' ' << q << '\n';
+        return;
+    }
 }
 
 signed main()

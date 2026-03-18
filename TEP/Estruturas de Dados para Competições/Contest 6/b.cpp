@@ -19,14 +19,13 @@ using vpll = vector<pll>;
 void solve()
 {
     ll n; cin >> n;
-    
-    ll ans;
-    if(n%2)
-        ans = n/2;
-    else
-        ans = (n-1)/2;
-
-    cout << ans << '\n';
+    ll odd = 0;
+    while(n--)
+    {
+        ll x; cin >> x;
+        if(x&1) odd++;
+    }
+    cout << odd << '\n';
 }
 
 signed main()

@@ -12,20 +12,32 @@ using vpll = vector<pll>;
 #define all(xs) xs.begin(), xs.end()
 #define fio cin.tie(0)->ios::sync_with_stdio(0)
 #define mp make_pair
-#define MAXN (1e9 + 7)
 #define ff first
 #define ss second
 
 void solve()
 {
     ll n; cin >> n;
-    
-    ll ans;
-    if(n%2)
-        ans = n/2;
-    else
-        ans = (n-1)/2;
+    map<ll,ll> hs;
+    for(ll i = 0; i < 2*n; i++)
+    {
+        ll x; cin >> x;
+        hs[x]++;
+    }
 
+    ll a = 0, b = 0, c = 0;
+    for(auto [k, v] : hs)
+    {
+        if(v&1)
+            ++a;
+        else if(v%4)
+            ++c;
+        else
+            ++b;
+    }
+    ll ans = a + 2*b + 2*c;
+    if(!a && b&1)
+        ans -= 2;
     cout << ans << '\n';
 }
 

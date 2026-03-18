@@ -12,19 +12,29 @@ using vpll = vector<pll>;
 #define all(xs) xs.begin(), xs.end()
 #define fio cin.tie(0)->ios::sync_with_stdio(0)
 #define mp make_pair
-#define MAXN (1e9 + 7)
 #define ff first
 #define ss second
 
+ll d(ll num)
+{
+    string s = to_string(num);
+    ll add = 0;
+    for(auto x : s)
+        add += (x-'0');
+    return add;
+}
+
 void solve()
 {
-    ll n; cin >> n;
-    
-    ll ans;
-    if(n%2)
-        ans = n/2;
-    else
-        ans = (n-1)/2;
+    ll x; cin >> x;
+    ll gap = 81, ans = 0;
+
+    for(ll i = 0; i <= gap; ++i)
+    {
+        ll y = x+i;
+        if(y - d(y) == x)
+            ++ans;
+    }
 
     cout << ans << '\n';
 }

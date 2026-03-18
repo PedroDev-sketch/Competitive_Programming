@@ -19,14 +19,27 @@ using vpll = vector<pll>;
 void solve()
 {
     ll n; cin >> n;
-    
-    ll ans;
-    if(n%2)
-        ans = n/2;
-    else
-        ans = (n-1)/2;
 
-    cout << ans << '\n';
+    ll p = 0, q = 0;
+    for(ll i = 2; i * i * i <= n; i++)
+    {
+        if(n%i) continue;
+
+        ll num = n/i;
+        if(num%i==0)
+        {
+            p = i;
+            q = n/(i*i);
+        }
+        else
+        {
+            q = i;
+            p = sqrt(n/i);
+        }
+        
+        cout << p << " " << q << '\n';
+        return;
+    }
 }
 
 signed main()

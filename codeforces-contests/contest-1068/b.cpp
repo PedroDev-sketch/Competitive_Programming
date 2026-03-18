@@ -12,21 +12,25 @@ using vpll = vector<pll>;
 #define all(xs) xs.begin(), xs.end()
 #define fio cin.tie(0)->ios::sync_with_stdio(0)
 #define mp make_pair
-#define MAXN (1e9 + 7)
 #define ff first
 #define ss second
 
 void solve()
 {
     ll n; cin >> n;
-    
-    ll ans;
-    if(n%2)
-        ans = n/2;
-    else
-        ans = (n-1)/2;
+    vll xs(n), ys(n);
+    for(auto& x : xs) cin >> x;
+    for(auto& y : ys) cin >> y;
 
-    cout << ans << '\n';
+    ll lscore = 0, hscore = 0;
+    for(ll i = 0; i < n; ++i)
+    {
+        ll newhigh = max(hscore - xs[i], ys[i] - lscore);
+        ll newlow = min(lscore - xs[i], ys[i] - hscore);
+        hscore = newhigh;
+        lscore = newlow;
+    }
+    cout << hscore << '\n';
 }
 
 signed main()

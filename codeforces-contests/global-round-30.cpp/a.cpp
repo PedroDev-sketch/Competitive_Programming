@@ -19,14 +19,20 @@ using vpll = vector<pll>;
 void solve()
 {
     ll n; cin >> n;
-    
-    ll ans;
-    if(n%2)
-        ans = n/2;
-    else
-        ans = (n-1)/2;
+    ll l = 1e10, r = -1e10;
+    vll xs(n); for(auto& x : xs) 
+    {
+        cin >> x;
+        l = min(l, x);
+        r = max(r, x);
+    }
+    ll x; cin >> x;
 
-    cout << ans << '\n';
+    if(x <= r && x >= l)
+        cout << "YES";
+    else cout << "NO";
+    cout << '\n';
+    return;
 }
 
 signed main()
@@ -37,3 +43,6 @@ signed main()
     while (t--)
         solve();
 }
+
+
+

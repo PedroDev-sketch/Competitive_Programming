@@ -18,22 +18,26 @@ using vpll = vector<pll>;
 
 void solve()
 {
-    ll n; cin >> n;
-    
-    ll ans;
-    if(n%2)
-        ans = n/2;
-    else
-        ans = (n-1)/2;
+    ll n, k; cin >> n >> k;
 
-    cout << ans << '\n';
+    deque<ll> ys;
+    vll xs(n); for(auto& x : xs){ cin >> x; ys.push_back(x);}
+
+    for(ll i = 0; i < k; i++)
+    {
+        ys.pop_front();
+        ys.push_back(0);
+    }
+
+    for(auto y : ys) cout << y << ' ';
+    cout << '\n';
 }
 
 signed main()
 {
     fio;
     ll t = 1;
-    cin >> t;
+    //cin >> t;
     while (t--)
         solve();
 }

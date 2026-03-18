@@ -15,32 +15,32 @@ using vpll = vector<pll>;
 #define ff first
 #define ss second
 
-const ll MAXN = 2e5+7;
-
 void solve()
 {
-    ll n, k; cin >> n >> k;
-    map<ll, ll> hs; vll xs(n);
-    for(auto& x : xs)
+    ll x, y, diff; cin >> x >> y;
+
+    bitset<32> btx(x), bty(y);
+    //cout << "btx-> " << btx << "\nbty-> " << bty << '\n';
+
+    ll msb = 31;
+    for(; msb>=0 && (btx[msb]!=bty[msb] || !btx[msb]); --msb);
+
+    if(msb==-1)
     {
-        cin >> x;
-        hs[x]++;
+        cout << x << " " << y << '\n';
+        return;
     }
 
-    sort(all(xs));
-
-    ll ans = 1;
-    for(ll g = 2; g <= n; g++)
+    bitset<32> btp = btx, btq = bty;
+    btq[msb] = 0;
+    for(ll i = msb-1; i >= 0; --i)
     {
-        ll buff = hs[g]; buff += hs[2*g]; buff += hs[3*g];
-        auto it = lower_bound(all(xs), 4*g);
-        ll idx = it - xs.begin();
-
-        if(it != xs.end()) buff += n - idx;
-        if(buff + k >= n) ans = max(ans, g);
+        btp[i] = 0;
+        btq[i] = 1;
     }
 
-    cout << ans << '\n';
+    ll p = btp.to_ullong(), q = btq.to_ullong();
+    cout << p << " " << q << '\n';
 }
 
 signed main()

@@ -12,21 +12,14 @@ using vpll = vector<pll>;
 #define all(xs) xs.begin(), xs.end()
 #define fio cin.tie(0)->ios::sync_with_stdio(0)
 #define mp make_pair
-#define MAXN (1e9 + 7)
 #define ff first
 #define ss second
 
 void solve()
 {
-    ll n; cin >> n;
-    
-    ll ans;
-    if(n%2)
-        ans = n/2;
-    else
-        ans = (n-1)/2;
-
-    cout << ans << '\n';
+    ll n, idx = 0, ch = 0; pll top{-1,-1}; cin >> n; vll xs(n); 
+    for(auto& x : xs) {++idx; cin >> x; ll sv = top.ff; top.ff = max(top.ff, x); if(top.ff !=sv) top.ss = idx-1; if(idx==top.ff) ++ch;}
+    if(ch){xs[top.ss] = xs[0]; xs[0] = top.ff;} for(auto x : xs) cout << x << " "; cout << '\n'; 
 }
 
 signed main()

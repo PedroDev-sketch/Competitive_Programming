@@ -15,32 +15,37 @@ using vpll = vector<pll>;
 #define ff first
 #define ss second
 
-const ll MAXN = 2e5+7;
-
 void solve()
 {
-    ll n, k; cin >> n >> k;
-    map<ll, ll> hs; vll xs(n);
-    for(auto& x : xs)
+    ll n, idx = 0; cin >> n;
+    map<ll, set<ll>> hs;
+    vll xs(n); 
+    for(auto& x : xs) 
     {
         cin >> x;
-        hs[x]++;
+        hs[x].insert(idx);
+        ++idx;
     }
+    vll ys = xs; sort(all(ys));
 
-    sort(all(xs));
-
-    ll ans = 1;
-    for(ll g = 2; g <= n; g++)
+    if(xs==ys)
     {
-        ll buff = hs[g]; buff += hs[2*g]; buff += hs[3*g];
-        auto it = lower_bound(all(xs), 4*g);
-        ll idx = it - xs.begin();
-
-        if(it != xs.end()) buff += n - idx;
-        if(buff + k >= n) ans = max(ans, g);
+        cout << "-1\n";
+        return;
     }
 
-    cout << ans << '\n';
+    ll ans = -1; 
+    for(ll i = 0; i < n; ++i)
+    {
+        if(xs[i] == ys[i])
+        {
+            hs[xs[i]].erase(i);
+            continue;
+        }
+
+        ll idx = *hs[xs[i]].begin();
+        ans = max(abs(xs[i] - xs[idx]), ans);
+    }
 }
 
 signed main()

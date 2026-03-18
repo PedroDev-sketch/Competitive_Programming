@@ -18,22 +18,29 @@ using vpll = vector<pll>;
 
 void solve()
 {
-    ll n; cin >> n;
-    
-    ll ans;
-    if(n%2)
-        ans = n/2;
-    else
-        ans = (n-1)/2;
-
-    cout << ans << '\n';
+    string h, m; cin >> h >> m;
+    ll hnum = stoi(h), mnum = stoi(m);
+    while(true)
+    {
+        ll a = hnum/10, b = hnum%10, c = mnum/10, d = mnum%10;
+        ll hr = a*10 + c, mi = b*10 + d; 
+        if(hr <= 23 && hr >= 0 && mi <= 59 && mi >= 0)
+        {
+            cout << a*10 + b << " " << c*10 + d << '\n'; 
+            return;
+        }
+        
+        mnum++; 
+        if(mnum == 60){mnum = 0; hnum++;}
+        if(hnum==24) hnum = 0;
+    }
 }
 
 signed main()
 {
     fio;
     ll t = 1;
-    cin >> t;
+    //cin >> t;
     while (t--)
         solve();
 }

@@ -12,21 +12,36 @@ using vpll = vector<pll>;
 #define all(xs) xs.begin(), xs.end()
 #define fio cin.tie(0)->ios::sync_with_stdio(0)
 #define mp make_pair
-#define MAXN (1e9 + 7)
 #define ff first
 #define ss second
+
+bool check(vll& xs, vll& ys, ll pos, ll n)
+{
+    bool ans = true;
+    for(ll m = 0; m < n && ans; ++m)
+        if(xs[m]>=ys[(m+pos)%n])
+            ans = false;
+    return ans;
+}
 
 void solve()
 {
     ll n; cin >> n;
+    vll as(n), bs(n), cs(n);
     
-    ll ans;
-    if(n%2)
-        ans = n/2;
-    else
-        ans = (n-1)/2;
+    for(auto& a : as) cin >> a;
+    for(auto& b : bs) cin >> b;
+    for(auto& c : cs) cin >> c;
 
-    cout << ans << '\n';
+    ll cntx = 0, cnty = 0;
+    for(ll i = 0; i < n; i++)
+    {
+        if(check(as, bs, i, n))
+            ++cntx;
+        if(check(bs, cs, i, n))
+            ++cnty;
+    }
+    cout << cntx*cnty*n << "\n";
 }
 
 signed main()

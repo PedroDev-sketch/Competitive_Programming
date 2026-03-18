@@ -18,7 +18,69 @@ using vpll = vector<pll>;
 
 void solve()
 {
-    
+    ll n, q; cin >> n >> q;
+    string s; cin >> s; 
+
+    vll ys; ll num = 0;
+    bool good = false;
+    for(auto x : s)
+    {
+        if(x=='B')
+        {
+            good = true;
+            if(num) ys.eb(num); num = 0;
+            ys.eb(-1);
+        }
+        else num++;
+    }
+
+    if(num) ys.eb(num);
+
+    /* for(auto y : ys) cout << y << ' ';
+    cout << '\n'; */
+
+    while(q--)
+    {
+        ll x; cin >> x;
+
+        if(!good)
+        {
+            cout << x << '\n';
+        }
+        else
+        {
+            ll ans = 0;
+            while(x>0)
+            {
+                for(auto y : ys)
+                {
+                    if(y==-1)
+                    {
+                        x/=2;
+                        ans++;
+                    }
+                    else
+                    {
+                        if(x <= y)
+                        {
+                            ans += x;
+                            x = 0;
+                        }
+                        else
+                        {
+                            x-=y;
+                            ans+=y;
+                        }
+                    }
+
+                    if(x <= 0) break;
+                }
+            }
+
+            cout << ans << '\n';
+        }
+    }
+
 }
 
 signed main()

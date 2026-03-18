@@ -12,19 +12,20 @@ using vpll = vector<pll>;
 #define all(xs) xs.begin(), xs.end()
 #define fio cin.tie(0)->ios::sync_with_stdio(0)
 #define mp make_pair
-#define MAXN (1e9 + 7)
 #define ff first
 #define ss second
 
 void solve()
 {
-    ll n; cin >> n;
-    
-    ll ans;
-    if(n%2)
-        ans = n/2;
-    else
-        ans = (n-1)/2;
+    ll a, b, n; cin >> a >> b >> n;
+    ll ans = 1;
+
+    double num = (double)a/n;
+    if(num < (double)b && a > b)
+    {
+        ll m = a/b;
+        if(n>m) ans++;
+    }
 
     cout << ans << '\n';
 }

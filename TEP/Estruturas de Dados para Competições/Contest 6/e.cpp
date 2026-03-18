@@ -16,15 +16,36 @@ using vpll = vector<pll>;
 #define ff first
 #define ss second
 
+void func(ll src, ll& ans, vector<bool>& vis, const vvll& xs)
+{
+    if(ans==1e6)
+        return;
+    
+    vis[src] = true;
+    ans++;
+
+    for(auto x : xs[src])
+        if(!vis[x])
+            func(x, ans, vis, xs);
+
+    vis[src] = false;
+}
+
 void solve()
 {
-    ll n; cin >> n;
-    
-    ll ans;
-    if(n%2)
-        ans = n/2;
-    else
-        ans = (n-1)/2;
+    ll n, m; cin >> n >> m;
+
+    vvll xs(n);
+    for(ll i = 0; i < m; i++)
+    {
+        ll x, y; cin >> x >> y;
+        xs[x-1].eb(y-1);
+        xs[y-1].eb(x-1);
+    }
+
+    vector<bool> vis(n, false);
+    ll ans = 0;
+    func(0, ans, vis, xs);
 
     cout << ans << '\n';
 }
@@ -33,7 +54,7 @@ signed main()
 {
     fio;
     ll t = 1;
-    cin >> t;
+    //cin >> t;
     while (t--)
         solve();
 }
