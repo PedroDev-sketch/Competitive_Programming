@@ -18,7 +18,7 @@ using vpll = vector<pll>;
 void solve()
 {
     ll n, idx = 0; cin >> n;
-    map<ll,ll> hs; map<ll, pll> pos; priority_queue<ll> ys;
+    vll pos(n+1, 0); vpll hs(n+1, {0,0}); priority_queue<ll> ys;
     vll xs(n); 
     for(auto& x : xs)
     {
@@ -27,6 +27,8 @@ void solve()
         ys.push(x);
         pos[x] = idx;
     }
+
+    ll start = ys.top();
     
     set<ll> maxs;
     while(!ys.empty())
@@ -35,16 +37,25 @@ void solve()
         maxs.emplace(pos[num]);
 
         auto it = maxs.find(pos[num]);
-        if(it!=maxs.begin())
-            hs[xs[*maxs.begin() - 1]].ss = num;
-        else if(next(it) != maxs.end())
+        if(it!=maxs.begin() && !hs[xs[*prev(it) - 1]].ss)
+            hs[xs[*prev(it) - 1]].ss = num;
+        else if(next(it) != maxs.end() && !hs[xs[*next(it) - 1]].ff)
             hs[xs[*next(it) - 1]].ff = num;
     }
 
-    for(auto h : hs)
+    ll cnt = 0;
+    auto ds = [&](auto& self, ll depth, ll num) -> void
     {
-        cout << h.ff << ": {" << h.ss.ff << ", " << hs.ss.ss << "}\n";
-    }
+        cnt = max(cnt, depth);
+
+        if(hs[num].ff)
+            self(self, depth+1, hs[num].ff);
+        if(hs[num].ss)
+            self(self, depth+1, hs[num].ss);
+    };
+
+    ds(ds, 1, start);
+    cout << n - cnt << '\n';
 }
 
 signed main()
