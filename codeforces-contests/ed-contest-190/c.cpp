@@ -17,7 +17,48 @@ using vpll = vector<pll>;
 
 void solve()
 {
+    ll n; cin >> n;
+    vll xs(n); 
     
+    ll cnt = 0, back = n-1, blocks = 0;
+    for(auto& x : xs) 
+    {
+        cin >> x;
+        if(x>=2)
+        {
+            cnt += x;
+            ++blocks;
+        }
+    }
+
+    bool shave = false;
+    ll ones = count(all(xs), 1LL);
+
+    for(ll i = 0; i < ones; ++i)
+    {
+        ll req = (!shave && blocks > 1) ? 4 : 2;
+
+        if(xs[back] >= req)
+        {
+            if(!shave && blocks > 1)
+            {
+                xs[back] -= 2;
+                shave = true;
+            }
+
+            cnt += 1;
+            xs[back] -= 2;
+
+            if(xs[back] < 2)
+            {
+                back = max(back-1LL, 0LL);
+                shave = false; 
+            }
+        }
+        
+    }
+
+    cout << (cnt >= 3 ? cnt : 0) << '\n';
 }
 
 signed main()
