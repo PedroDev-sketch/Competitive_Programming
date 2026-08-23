@@ -16,11 +16,6 @@ using vpll = vector<pll>;
 #define ff first
 #define ss second
 
-ll check(ll num)
-{
-    
-}
-
 void solve()
 {
     ll n; cin >> n;
@@ -28,9 +23,9 @@ void solve()
 
     ll ans = 0;
 
-    auto check_seq = [&](ll num)
+    auto check_seq = [&](ll num, ll cnt)
     {
-        ll flag = 1, cnt = 0;
+        ll flag = 1;
         for(ll i = 2; i < n; ++i)
         {
             if((s[i]==(num+'0') || s[i]=='?') && cnt)
@@ -49,17 +44,17 @@ void solve()
     if(s[0]=='1' || s[0]=='?')
     {
         if(s[1]=='0' || s[1]=='?')
-            check_seq(0);
+            check_seq(0, 1); 
         if(s[1]=='1' || s[1]=='?')
-            check_seq(0);
+            check_seq(0, 0); 
     }
 
     if(s[0]=='0' || s[0]=='?')
     {
         if(s[1]=='0' || s[1]=='?')
-            check_seq(1);
+            check_seq(1, 0); 
         if(s[1]=='1' || s[1]=='?')
-            check_seq(1);
+            check_seq(1, 1); 
     }
 
     cout << ans << '\n';
