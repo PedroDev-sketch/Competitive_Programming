@@ -28,7 +28,31 @@ void solve()
             x /= 2;
             ++xs[i].ff;
         }
+     
+        while(x%5==0)
+        {
+            x /= 5;
+            ++xs[i].ss;
+        }
     }
+
+    ll fives = 25*n+50;
+    vvll dp(k+1, vll(fives+1, -1)); dp[0][0] = 0;
+    for(auto x : xs)
+    {
+        ll cnt2 = x.ff, cnt5 = x.ss;
+        per(i, k, 1)
+            per(j, fives, cnt5)
+                if(dp[i-1][j-cnt5] != -1)
+                    dp[i][j] = max(dp[i][j], dp[i-1][j-cnt5]+ cnt2);
+    }
+
+    ll ans = 0;
+    rep(j, 0, fives+1)
+        if(dp[k][j]!=-1)
+            ans = max(ans, min(j, dp[k][j]));
+
+    cout << ans << '\n';
 }
 
 signed main()
