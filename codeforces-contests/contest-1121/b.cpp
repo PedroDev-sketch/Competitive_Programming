@@ -22,9 +22,11 @@ void solve()
     vll xs(n); for(auto& x : xs) cin >> x;
     priority_queue<ll> pq;
 
-    if(n==1)
+    if(n == 1 || m == 1)
     {
-        cout << xs[0] << '\n';
+        ll ans = -1e18;
+        for(ll x : xs) ans = max(ans, x);
+        cout << ans << '\n';
         return;
     }
 
@@ -35,7 +37,7 @@ void solve()
         sum += xs[i];
     }
 
-    ll ans = -1e12;
+    ll ans = -1e18;
     rep(i, m-1, n)
     {
         ans = max(ans, m*xs[i] - sum);
